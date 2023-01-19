@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "929316478364",
+    "project_id": "aslou-7c304",
+    "storage_bucket": "aslou-7c304.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929316478364:android:569e8f3d99b07138233c59",
+        "android_client_info": {
+          "package_name": "com.example.asoul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929316478364-i14e7sd6fg1rq56f3cpa7p1or8vht811.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3XyRbPL7o5Wg916o7zs8TJf-qoVAeyzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929316478364-i14e7sd6fg1rq56f3cpa7p1or8vht811.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
