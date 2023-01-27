@@ -16,7 +16,7 @@ class productimage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16),
+      margin: EdgeInsets.symmetric(vertical: 10),
       height: size.width * 0.5,
       child: Stack(
         alignment: Alignment.bottomCenter,

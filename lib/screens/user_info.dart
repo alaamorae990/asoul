@@ -7,6 +7,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../consts/firebase_consts.dart';
 import '../consts/theme_data.dart';
@@ -16,6 +17,7 @@ import '../services/global_methods.dart';
 import '../widgets/lodaing_manger.dart';
 import '../widgets/text_widget.dart';
 import 'child/developer_screen.dart';
+import 'child/food_screen.dart';
 import 'child/health_center.dart';
 import 'child/login.dart';
 import 'child/tips_and_information.dart';
@@ -33,6 +35,7 @@ class UserScreen extends StatefulWidget {
 class _UserScreenState extends State<UserScreen> {
 
   String? fullName;
+  String? number;
 
   bool _isLoading = false;
   final User? user = authInstance.currentUser;
@@ -63,6 +66,7 @@ class _UserScreenState extends State<UserScreen> {
         return;
       } else {
         fullName = userDoc.get('fullName');
+        number = userDoc.get('numberSuper');
       }
     } catch (error) {
       setState(() {
@@ -137,6 +141,15 @@ class _UserScreenState extends State<UserScreen> {
                  const SizedBox(
                    height: 3,
                  ),
+                 _listTiles(
+                   title: 'الاتصال بالمشرف ',
+
+                   icon: IconlyLight.call,
+                   onPressed: () async {
+                     launch("tel://${number}");
+                   },
+                   color: second,
+                 ),
 
                  _listTiles(
                    title: 'المعلومات الشخصية',
@@ -155,6 +168,15 @@ class _UserScreenState extends State<UserScreen> {
                    onPressed: () {
                      GlobalMethods.navigateTo(
                          ctx: context, routeName: TipsAndInformation.routeName);
+                   },
+                   color: second,
+                 ),
+                 _listTiles(
+                   title: 'الاكلات المقترحة',
+                   icon: IconlyLight.ticket,
+                   onPressed: () {
+                     GlobalMethods.navigateTo(
+                         ctx: context, routeName: FoodScreen.routeName);
                    },
                    color: second,
                  ),

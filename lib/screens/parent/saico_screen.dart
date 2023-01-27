@@ -2,18 +2,20 @@ import 'package:flutter/material.dart';
 
 import '../../consts/theme_data.dart';
 import '../../model/question_model.dart';
+import '../../model/saico_model.dart';
 import '../../widgets/question_widget.dart';
 import '../../widgets/question_widget2.dart';
 import '../../widgets/recomundation_widget.dart';
+import '../../widgets/saico_card.dart';
 import '../../widgets/text_widget.dart';
-class QuestionFaqScreeen extends StatefulWidget {
-  const QuestionFaqScreeen({Key? key}) : super(key: key);
+class SaicoScreeen extends StatefulWidget {
+  const SaicoScreeen({Key? key}) : super(key: key);
 
   @override
-  State<QuestionFaqScreeen> createState() => _QuestionFaqScreeenState();
+  State<SaicoScreeen> createState() => _SaicoScreeenState();
 }
 
-class _QuestionFaqScreeenState extends State<QuestionFaqScreeen> {
+class _SaicoScreeenState extends State<SaicoScreeen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,10 +55,10 @@ class _QuestionFaqScreeenState extends State<QuestionFaqScreeen> {
               // scrollDirection: Axis.vertical,
               shrinkWrap: true,
 
-              itemCount: questionmodel.length,
-              itemBuilder: (context, index) => QuestionCard(
+              itemCount: saicoModel.length,
+              itemBuilder: (context, index) => SaicoCard(
                 itemIndex: index,
-                questionmodel:questionmodel[index] ,
+                saicoModel: saicoModel[index] ,
 
               ),
             ),

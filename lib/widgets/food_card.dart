@@ -22,7 +22,8 @@ class FoodCard extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final color = Utils(context).color;
-    return Container(
+    return
+      Container(
       margin: EdgeInsets.symmetric(
         horizontal: 10,
         vertical: 10,

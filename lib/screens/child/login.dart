@@ -40,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _typeofDiabetesController = TextEditingController();
   final _numofshoutController = TextEditingController();
   final _passController = TextEditingController();
+  final _numberSuperController = TextEditingController();
   final _fullNameFocusNode = FocusNode();
   final _emailFocusNode = FocusNode();
   final _motherNameFocusNode = FocusNode();
@@ -48,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _typeofDiabetesFocusNode = FocusNode();
   final _numofshoutFocusNode = FocusNode();
   final _passFocusNode = FocusNode();
+  final _numSuperFocusNode = FocusNode();
   var _obscureText = true;
   @override
   void dispose() {
@@ -59,6 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
     _ageChildController.dispose();
     _typeofDiabetesController.dispose();
     _numofshoutController.dispose();
+    _numberSuperController.dispose();
+    _numSuperFocusNode.dispose();
     _fullNameFocusNode.dispose();
     _motherNameFocusNode.dispose();
     _SupervisorFocusNode.dispose();
@@ -103,6 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
           'bloodType': "ادخل قيمة",
           'gender': "ادخل قيمة",
           'userCart':[],
+          'numberSuper':_numberSuperController.text,
         });
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) => const ChooseActor(),
@@ -307,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             focusNode: _emailFocusNode,
                             textInputAction: TextInputAction.next,
                             onEditingComplete: () => FocusScope.of(context)
-                                .requestFocus(_passFocusNode),
+                                .requestFocus(_numSuperFocusNode),
                             keyboardType: TextInputType.name,
                             controller: _emailController,
                             validator: (value) {
@@ -336,6 +341,39 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           const SizedBox(
                             height: 20,
+                          ),
+                          TextFormField(
+                            focusNode: _numSuperFocusNode,
+                            textInputAction: TextInputAction.next,
+                            onEditingComplete: () => FocusScope.of(context)
+                                .requestFocus(_passFocusNode),
+                            keyboardType: TextInputType.number,
+                            controller: _numberSuperController,
+                            validator: (value) {
+                              if (value!.isEmpty ) {
+                                return "";
+                              } else {
+                                return null;
+                              }
+                            },
+                            textAlign: TextAlign.end,
+                            style: const TextStyle(color: Colors.white),
+                            decoration: const InputDecoration(
+                              hintText: 'رقم المشرف (أب - أم - ..)',
+                              hintStyle: TextStyle(color: Colors.white),
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.white),
+                              ),
+                              errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(color: Colors.red),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height:
+                         20
                           ),
                           TextFormField(
                             focusNode: _passFocusNode,

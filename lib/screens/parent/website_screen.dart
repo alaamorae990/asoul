@@ -247,10 +247,11 @@ body: LoadingManager(
             ),
             SizedBox(height: 10,),
             TextWidget(text:'${result}  :الناتج' , color: Colors.black, textSize: 18,isTitle: true,),
+
             SizedBox(height: 10,),
             TextWidget(text:'ملاحظه في حاله زياده النشاط يضاف مابين ٣٠٠ -٣٥٠ سعره حراريه ' , color: second2, textSize: 20,isTitle: true,),
             Divider(thickness: 3,color: Colors.white,),
-            TextWidget(text: 'مواقع مفيدة تخدم مرضى داء السكري  ',isTitle: true, color: Colors.black, textSize: 20),
+            TextWidget(text: 'طريقة حقن الأنسولين من موفع وزارة الصحة ',isTitle: true, color: Colors.black, textSize: 20),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: 10,
@@ -343,11 +344,21 @@ body: LoadingManager(
 
             ),
             Divider(thickness: 3,color: Colors.white,),
+            TextWidget(text: 'مواقع مفيدة تخدم مرضى داء السكري  ',isTitle: true, color: Colors.black, textSize: 20),
+            Divider(thickness: 3,color: Colors.white,),
             Align(
               alignment: Alignment.topCenter,
               child: Column(
 
                 children: [
+                  ElevatedButton(
+
+                    onPressed: (){
+                      launchUrl(Uri.parse("https://www.moh.gov.sa/HealthAwareness/MedicalTools/Pages/CalorieCalculate.aspx"));
+                    },
+                    style: ButtonStyle(backgroundColor:  MaterialStateProperty.all(second2),),
+                    child:  TextWidget(text: 'حاسبة سعرات الحرارية وزارة الصحة ',isTitle: true, color: Colors.black, textSize: 20),
+                  ),
                   ElevatedButton(
 
                     onPressed: (){

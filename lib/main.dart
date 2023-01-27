@@ -1,6 +1,8 @@
 
+import 'package:asoul/screens/btm_Bar.dart';
 import 'package:asoul/screens/categories_screen.dart';
 import 'package:asoul/screens/child/developer_screen.dart';
+import 'package:asoul/screens/child/food_screen.dart';
 import 'package:asoul/screens/child/health_center.dart';
 import 'package:asoul/screens/child/home_screen.dart';
 import 'package:asoul/screens/child_or_parent.dart';
@@ -8,6 +10,7 @@ import 'package:asoul/screens/parent/btm_bar_parent.dart';
 import 'package:asoul/screens/parent/parent_screen.dart';
 import 'package:asoul/screens/parent/table_screen.dart';
 import 'package:asoul/services/auth_screen.dart';
+import 'package:asoul/widgets/quizs/example.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +52,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //dark or light(
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   void getCurrentAppTheme() async {
@@ -61,6 +65,7 @@ class _MyAppState extends State<MyApp> {
     getCurrentAppTheme();
     super.initState();
   }
+  //)
  final Future<FirebaseApp> _firebaseInitialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
@@ -84,6 +89,7 @@ class _MyAppState extends State<MyApp> {
               )),
             );
           }
+
           return MultiProvider(
             providers: [
                       Provider<FirebaseAuthMethods>(
@@ -114,15 +120,16 @@ class _MyAppState extends State<MyApp> {
                   debugShowCheckedModeBanner: false,
                   title: 'عسول وعسولة',
                   theme: Styles.themeData(themeProvider.getDarkTheme, context),
-                  home:  const FetchScreen(),
+                  home:   BottomBarScreen(),
                   routes:  {
+
                     UserInfoShow.routeName: (ctx) => const UserInfoShow(),
                     TipsAndInformation.routeName: (ctx) => const TipsAndInformation(),
                     HealthCenter.routeName: (ctx) => const HealthCenter(),
                     DeveloperScreen.routeName: (ctx) => const DeveloperScreen(),
                     ParentScreen.routeName: (ctx) => const ParentScreen(),
                     BottomBarParentScreen.routeName: (ctx) => const BottomBarParentScreen(),
-                    // LoginScreen.routeName: (ctx) => const LoginScreen(),
+                    FoodScreen.routeName: (ctx) => const FoodScreen(),
                     // ForgetPasswordScreen.routeName: (ctx) =>
                     //     const ForgetPasswordScreen(),
                     // AskTaskScreen.routeName: (ctx) =>  AskTaskScreen(),

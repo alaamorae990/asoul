@@ -19,6 +19,9 @@ class TableScreen extends StatefulWidget {
 
 class _TableScreenState extends State<TableScreen> {
   final _formKey = GlobalKey<FormState>();
+  late double result=0;
+  final TextEditingController _weightController =
+  TextEditingController(text: "");
   final TextEditingController _m11Controller =
   TextEditingController(text: "");
   final TextEditingController _m2TextController =
@@ -50,6 +53,7 @@ class _TableScreenState extends State<TableScreen> {
 
   @override
   void dispose() {
+    _weightController.dispose();
     _m11Controller.dispose();
     _m2TextController.dispose();
     _m3TextController.dispose();
@@ -66,6 +70,7 @@ class _TableScreenState extends State<TableScreen> {
     _e6TextController.dispose();
     super.dispose();
   }
+
   bool _isLoading = false;
   void _submitFormOnLogin() async {
     final isValid = _formKey.currentState!.validate();
@@ -125,6 +130,14 @@ class _TableScreenState extends State<TableScreen> {
       }
     }
   }
+  double _total()  {
+    var total;
+     total= (0.55*double.parse(_weightController.text));
+    return total;
+
+      }
+
+
   @override
   Widget build(BuildContext context) {
     Size size=MediaQuery.of(context).size;
@@ -155,7 +168,57 @@ class _TableScreenState extends State<TableScreen> {
         color: Colors.black.withOpacity(0.5),),
           SingleChildScrollView(child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextWidget(text: "الجرعة اليومية الكلية من الأنسولين", color: Colors.white, textSize: 20),
+              ),
+              TextFormField(
 
+                textInputAction: TextInputAction.next,
+
+                keyboardType: TextInputType.number,
+                controller: _weightController,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "";
+                  } else {
+                    return null;
+                  }
+                },
+                textAlign: TextAlign.end,
+                style: const TextStyle(color: Colors.white),
+                decoration: const InputDecoration(
+                  hintText: 'الوزن ',
+                  hintStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.normal,fontFamily: 'ElMessiri'),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.white),
+                  ),
+                  errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red),
+                  ),
+                ),
+              ),
+              AuthButton(
+                buttonText: 'احسب',
+                fct: () {
+
+                  setState(() {
+                    result= _total();
+                  });
+                },
+              ),
+
+              SizedBox(height: 10,),
+
+              TextWidget(text:'${result}  :الناتج' , color: Colors.black, textSize: 18,isTitle: true,),
+
+            Divider(thickness: 3,color: Colors.white,),
+              const SizedBox(
+                height: 20,
+              ),
 
           Container(
             height: size.height*0.5,
@@ -312,7 +375,7 @@ class _TableScreenState extends State<TableScreen> {
                             isTitle: true,
                           ),
                           Form(
-                            key: _formKey,
+
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.end,
@@ -321,7 +384,7 @@ class _TableScreenState extends State<TableScreen> {
                                   textInputAction: TextInputAction.next,
 
                                   keyboardType: TextInputType.name,
-                                  controller: _m11Controller,
+                                  controller: _m3TextController,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return "املئ الفراغ";
@@ -353,7 +416,7 @@ class _TableScreenState extends State<TableScreen> {
                                   textInputAction: TextInputAction.next,
 
                                   keyboardType: TextInputType.name,
-                                  controller: _m2TextController,
+                                  controller: _m4TextController,
                                   validator: (value) {
                                     if (value!.isEmpty) {
                                       return "";
@@ -394,21 +457,9 @@ class _TableScreenState extends State<TableScreen> {
                                       FirebaseFirestore.instance.collection('users').doc(uid).update({
                                         'userTime': FieldValue.arrayUnion([
                                           {
-                                            'takeTime': Timestamp.now(),
-                                            'm1': _m11Controller.text ,
-                                            'm2': _m2TextController.text ,
-                                            'm3': '' ,
-                                            'm4': '' ,
-                                            'a1': '' ,
-                                            'a2': '' ,
-                                            'a3': '' ,
-                                            'a4': '' ,
-                                            'e1': '' ,
-                                            'e2': '' ,
-                                            'e3': '' ,
-                                            'e4': '' ,
-                                            'e5': '' ,
-                                            'e6': '' ,
+
+                                            'm3': _m3TextController.text,
+                                            'm4': _m4TextController.text,
                                           }
                                         ])
                                       });
@@ -431,7 +482,578 @@ class _TableScreenState extends State<TableScreen> {
                             ),
                           ),
 
-        ]
+                          TextWidget(
+                            text: 'جرعة الظهر قبل الوجبة',
+                            color: Colors.white,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
+                          Form(
+
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextFormField(
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _a1TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "املئ الفراغ";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل الجرعة ',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _a2TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل السكر',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  child: Text(
+                                    'تسجيل القيم',
+                                    style: TextStyle(
+                                        fontFamily: 'ElMessiri', fontWeight: FontWeight.normal, color: Colors.white, fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey.withOpacity(0.5), // background (button) color
+                                  ),
+                                  onPressed: ()async{
+                                    try {
+                                      bool istake=true;
+                                      final User? user = authInstance.currentUser;
+                                      final uid = user!.uid;
+                                      FirebaseFirestore.instance.collection('users').doc(uid).update({
+                                        'userTime': FieldValue.arrayUnion([
+                                          {
+
+                                            'a1': _a1TextController.text ,
+                                            'a2': _a2TextController.text ,
+
+                                          }
+                                        ])
+                                      });
+                                      await Fluttertoast.showToast(
+                                        msg: "تمت الإضافة بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } on FirebaseException catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: '${error.message}', context: context);
+
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(subtitle: '$error', context: context);
+
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'جرعة الظهر بعد الوجبة',
+                            color: Colors.white,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
+                          Form(
+
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextFormField(
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _a3TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "املئ الفراغ";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل الجرعة ',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _a4TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل السكر',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  child: Text(
+                                    'تسجيل القيم',
+                                    style: TextStyle(
+                                        fontFamily: 'ElMessiri', fontWeight: FontWeight.normal, color: Colors.white, fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey.withOpacity(0.5), // background (button) color
+                                  ),
+                                  onPressed: ()async{
+                                    try {
+                                      bool istake=true;
+                                      final User? user = authInstance.currentUser;
+                                      final uid = user!.uid;
+                                      FirebaseFirestore.instance.collection('users').doc(uid).update({
+                                        'userTime': FieldValue.arrayUnion([
+                                          {
+
+                                            'a3': _a3TextController.text ,
+                                            'a4': _a4TextController.text ,
+
+                                          }
+                                        ])
+                                      });
+                                      await Fluttertoast.showToast(
+                                        msg: "تمت الإضافة بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } on FirebaseException catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: '${error.message}', context: context);
+
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(subtitle: '$error', context: context);
+
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'جرعة المساء قبل الوجبة',
+                            color: Colors.white,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
+                          Form(
+
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextFormField(
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _e1TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "املئ الفراغ";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل الجرعة ',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _e2TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل السكر',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  child: Text(
+                                    'تسجيل القيم',
+                                    style: TextStyle(
+                                        fontFamily: 'ElMessiri', fontWeight: FontWeight.normal, color: Colors.white, fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey.withOpacity(0.5), // background (button) color
+                                  ),
+                                  onPressed: ()async{
+                                    try {
+                                      bool istake=true;
+                                      final User? user = authInstance.currentUser;
+                                      final uid = user!.uid;
+                                      FirebaseFirestore.instance.collection('users').doc(uid).update({
+                                        'userTime': FieldValue.arrayUnion([
+                                          {
+
+                                            'e1': _e1TextController.text ,
+                                            'e2': _e2TextController.text ,
+
+                                          }
+                                        ])
+                                      });
+                                      await Fluttertoast.showToast(
+                                        msg: "تمت الإضافة بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } on FirebaseException catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: '${error.message}', context: context);
+
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(subtitle: '$error', context: context);
+
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'جرعة المساء بعد الوجبة',
+                            color: Colors.white,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
+                          Form(
+
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextFormField(
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _e3TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "املئ الفراغ";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل الجرعة ',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _e4TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل السكر',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  child: Text(
+                                    'تسجيل القيم',
+                                    style: TextStyle(
+                                        fontFamily: 'ElMessiri', fontWeight: FontWeight.normal, color: Colors.white, fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey.withOpacity(0.5), // background (button) color
+                                  ),
+                                  onPressed: ()async{
+                                    try {
+                                      bool istake=true;
+                                      final User? user = authInstance.currentUser;
+                                      final uid = user!.uid;
+                                      FirebaseFirestore.instance.collection('users').doc(uid).update({
+                                        'userTime': FieldValue.arrayUnion([
+                                          {
+
+                                            'e3': _e3TextController.text ,
+                                            'e4': _e4TextController.text ,
+
+                                          }
+                                        ])
+                                      });
+                                      await Fluttertoast.showToast(
+                                        msg: "تمت الإضافة بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } on FirebaseException catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: '${error.message}', context: context);
+
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(subtitle: '$error', context: context);
+
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          TextWidget(
+                            text: 'جرعة المساء وقت النوم ',
+                            color: Colors.white,
+                            textSize: 20,
+                            isTitle: true,
+                          ),
+                          Form(
+
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TextFormField(
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _e5TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "املئ الفراغ";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل الجرعة ',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                TextFormField(
+
+                                  textInputAction: TextInputAction.next,
+
+                                  keyboardType: TextInputType.name,
+                                  controller: _e6TextController,
+                                  validator: (value) {
+                                    if (value!.isEmpty) {
+                                      return "";
+                                    } else {
+                                      return null;
+                                    }
+                                  },
+                                  textAlign: TextAlign.end,
+                                  style: const TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                  decoration: const InputDecoration(
+                                    hintText: 'معدل السكر',
+                                    hintStyle: TextStyle(color: Colors.white,fontFamily: 'ElMessiri', fontWeight: FontWeight.normal,),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    focusedBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.white),
+                                    ),
+                                    errorBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Colors.red),
+                                    ),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                  child: Text(
+                                    'تسجيل القيم',
+                                    style: TextStyle(
+                                        fontFamily: 'ElMessiri', fontWeight: FontWeight.normal, color: Colors.white, fontSize: 20),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.grey.withOpacity(0.5), // background (button) color
+                                  ),
+                                  onPressed: ()async{
+                                    try {
+                                      bool istake=true;
+                                      final User? user = authInstance.currentUser;
+                                      final uid = user!.uid;
+                                      FirebaseFirestore.instance.collection('users').doc(uid).update({
+                                        'userTime': FieldValue.arrayUnion([
+                                          {
+
+                                            'e5': _e5TextController.text ,
+                                            'e6': _e6TextController.text ,
+
+                                          }
+                                        ])
+                                      });
+                                      await Fluttertoast.showToast(
+                                        msg: "تمت الإضافة بنجاح",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    } on FirebaseException catch (error) {
+                                      GlobalMethods.errorDialog(
+                                          subtitle: '${error.message}', context: context);
+
+                                    } catch (error) {
+                                      GlobalMethods.errorDialog(subtitle: '$error', context: context);
+
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ]
     ),
                     ),
 
@@ -443,10 +1065,11 @@ class _TableScreenState extends State<TableScreen> {
           ),
           ),
               Divider(thickness: 3,color: Colors.white,),
-              TextWidget(text: "text", color: Colors.white, textSize: 18)
+
             ],
           ),
           ),
+
         ],
     ),
       )

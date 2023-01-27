@@ -15,38 +15,30 @@ class HealthCenter {
 List<HealthCenter> healthCenter = [
   HealthCenter(
       id: 1,
-      number: 0932692786,
-      title: "مركز السلام الصحي",
-      subTitle: " محطة بغداد - جدة",
-      image: "assets/images/logo.png",
+      number: 0126408222,
+      title: "مستشفى جامعه الملك عبد العزيز",
+      subTitle: "",
+      image: "assets/images/health-center.png",
       description:
       ""
   ),
   HealthCenter(
       id: 2,
-      number: 0932692786,
-      title: "مركز السلام الصحي",
-      subTitle: " محطة بغداد - جدة",
-      image: "assets/images/logo.png",
+      number: 0122327555,
+      title: "مستشفى شرق جده العام",
+      subTitle: "",
+      image: "assets/images/health-center.png",
       description:
       ""
   ),
   HealthCenter(
       id: 3,
-      number: 0932692786,
-      title: "مركز السلام الصحي",
-      subTitle: " محطة بغداد - جدة",
-      image: "assets/images/logo.png",
+      number: 0126375555,
+      title: "مستشفى الملك عبد العزيز",
+      subTitle: "",
+      image: "assets/images/health-center.png",
       description:
       ""
   ),
-  HealthCenter(
-      id: 4,
-      number: 0932692786,
-      title: "مركز السلام الصحي",
-      subTitle: " محطة بغداد - جدة",
-      image: "assets/images/logo.png",
-      description:
-      ""
-  ),
+
 ];

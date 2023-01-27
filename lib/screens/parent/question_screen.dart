@@ -1,4 +1,5 @@
 import 'package:asoul/screens/parent/question_faq.dart';
+import 'package:asoul/screens/parent/saico_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../consts/theme_data.dart';
@@ -145,6 +146,65 @@ class _QuestionScreenParentState extends State<QuestionScreenParent> {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'اسئلة شائعة ',
+                        style: TextStyle(color: primary,fontFamily: 'ElMessiri',fontWeight: FontWeight.bold),
+                      ),
+                    ),
+
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(
+                horizontal: 10,
+                vertical: 5,
+              ),
+              height: 222.0,
+              child: InkWell(
+                onTap: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SaicoScreeen(
+                      ),
+                    ),
+                  );
+                },
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(
+                      height: 160.0,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(0, 15),
+                                blurRadius: 25,
+                                color: Colors.black12),
+                          ]),
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0,0,0,30),
+                            child: Container(
+                              child: Image.asset(
+                                "assets/images/saico.png",
+                                fit: BoxFit.fill,
+                              ),
+                              height: 180,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'الجانب النفسي لطفل السكري ',
                         style: TextStyle(color: primary,fontFamily: 'ElMessiri',fontWeight: FontWeight.bold),
                       ),
                     ),

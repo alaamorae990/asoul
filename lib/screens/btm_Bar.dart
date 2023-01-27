@@ -27,10 +27,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       'page': const CategoriesScreen(),
       'title': 'Categories Screen',
     },
-    // {
-    //   'page': const CartScreen(),
-    //   'title': 'Cart Screen',
-    // },
+
     {
       'page': const UserScreen(),
       'title': 'user Screen',
@@ -51,13 +48,12 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       // appBar: AppBar(
       //   title: Text( _pages[_selectedIndex]['title']),
       // ),
+
       body: _pages[_selectedIndex]['page'],
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: _isDark ? Theme.of(context).cardColor : Colors.white,
-        type: BottomNavigationBarType.fixed,
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        
         currentIndex: _selectedIndex,
         unselectedItemColor: _isDark ? Colors.white10 : Colors.black12,
         selectedItemColor: _isDark ? Colors.lightBlue.shade200 : primary,

@@ -55,10 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         Image.asset('assets/images/01.png'),
       Center(child: Image.asset('assets/images/4.png')),
 
-      Padding(
-        padding: const EdgeInsets.fromLTRB(60,250,0,0),
-        child: Image.asset('assets/images/06.png'),
-      ),
+
 
 
 
@@ -121,13 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         SingleChildScrollView(
                           child: Container(
                             margin: EdgeInsets.only(top: 2.0),
-                                decoration: BoxDecoration(
-                                  // color: second2.withOpacity(0.6),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(40),
-                                    topRight: Radius.circular(40),
-                                  ),
-                                ),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black,
+                                  width: 4.0
+                              ),
+                            ),
                             height: MediaQuery
                                 .of(context)
                                 .size
@@ -135,25 +131,31 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: SingleChildScrollView(
                                 child: Column(
                                   children: [
+                                    Question(
+                                      correctImage:"assets/images/h1.png" ,
+                                      image1: "assets/images/h1.png",
+                                      title1: 'خيارة',
+                                      image2: "assets/images/n1.png",
+                                      title2: 'آيس كريم',
+                                    ),
 
+                                    Divider(thickness: 3,color: Colors.amber,),
                                     Question(
-                                      correctImage:"assets/images/fruit.jpg" ,
-                                      image1: "assets/images/fruit.jpg",
-                                      image2: "assets/images/e.jpg",
+                                      correctImage:"assets/images/h2.png" ,
+                                      image1: "assets/images/n2.png",
+                                      title1: 'شوكلاتة',
+                                      image2: "assets/images/h2.png",
+                                      title2: 'معكرونة',
                                     ),
-                                    Divider(thickness: 3,color: Colors.white,),
+                                    Divider(thickness: 3,color: Colors.amber,),
                                     Question(
-                                      correctImage:"assets/images/fruit.jpg" ,
-                                      image1: "assets/images/fruit.jpg",
-                                      image2: "assets/images/e.jpg",
+                                      correctImage:"assets/images/h3.png" ,
+                                      image1: "assets/images/h3.png",
+                                      title1: 'جزر',
+                                      image2: "assets/images/n3.png",
+                                      title2: 'مشروب غازي',
                                     ),
-                                    Divider(thickness: 3,color: Colors.white,),
-                                    Question(
-                                      correctImage:"assets/images/fruit.jpg" ,
-                                      image1: "assets/images/fruit.jpg",
-                                      image2: "assets/images/e.jpg",
-                                    ),
-                                    Divider(thickness: 3,color: Colors.white,),
+                                    Divider(thickness: 3,color: Colors.amber,),
                                   ],
                                 ),
                               ),
